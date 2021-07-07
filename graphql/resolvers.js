@@ -1,17 +1,11 @@
-import { getMovies, getById, addMovie, deleteMovie } from "./db";
+import { getMovies, getMovie, getSuggestions } from "./db";
 
 // resolvers는 어떤것이든지 될 수가 있다 다른 API에 갈 수도 있고 DB에 갈 수도 있다
 const resolvers = {
   Query: {
-    // person: function () {
-    //   return jungmin;
-    // },
-    movies: () => getMovies(),
-    movie: (_, { id }) => getById(id),
-  },
-  Mutation: {
-    addMovie: (_, { name, score }) => addMovie(name, score),
-    deleteMovie: (_, { id }) => deleteMovie(id),
+    movies: (_, { rating, limit }) => getMovies(limit, rating),
+    movie: (_, { id }) => getMovie(id),
+    suggestions: (_, { id }) => getSuggestions(id),
   },
 };
 
